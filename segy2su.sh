@@ -13,6 +13,11 @@
 #!  2014-01-22 add 'segyclean' process in order to clean the value of 'd1' or 'f1'
 
 
+#> @see
+#!  http://sepwww.stanford.edu/oldsep/cliner/files/suhelp/segyread.txt
+#!  http://sepwww.stanford.edu/oldsep/cliner/files/suhelp/surange.txt
+#!  http://sepwww.stanford.edu/oldsep/cliner/files/suhelp/segyclean.txt
+
 op01=/opt/cwp_su_43r5/bin/segyread
 op02=/opt/cwp_su_43r5/bin/surange
 op03=/opt/cwp_su_43r5/bin/segyclean
@@ -29,10 +34,7 @@ for file in $directory/*.segy
 do 
    fn=${file%.segy}
    echo ${fn}".segy"
-   $op01 tape=${fn}".segy" endian=0 hfile=${fn}".hfile" bfile=${fn}".bfile" > "tmp.su"
-   $op03 < "tmp.su" > ${fn}".su"
-   rm "tmp.su"
-   
+   $op01 tape=${fn}".segy" endian=0 hfile=${fn}".hfile" bfile=${fn}".bfile" | $op03 > ${fn}".su"
    $op02 < ${fn}".su" > ${fn}".range"
    cp ${fn}".range" ${fn}".info" 
    
@@ -44,3 +46,5 @@ do
 done
 
 exit 0
+
+
