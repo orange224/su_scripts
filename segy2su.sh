@@ -9,11 +9,16 @@
 # @warning:
 #  check the endian of your system, at first
 
-operation1=/opt/cwp_su_43r5/bin/segyread
-operation2=/opt/cwp_su_43r5/bin/surange
+#> @todo
+#!  2014-01-22 add 'segyclean' process in order to clean the value of 'd1' or 'f1'
+
+
+op01=/opt/cwp_su_43r5/bin/segyread
+op02=/opt/cwp_su_43r5/bin/surange
+op03=/opt/cwp_su_43r5/bin/segyclean
 
 # if directory name given as a script argument...
-if [-n "$1"]
+if [ -n "$1"]
 then
    directory=$1
 else
@@ -24,15 +29,18 @@ for file in $directory/*.segy
 do 
    fn=${file%.segy}
    echo ${fn}".segy"
-   $operation1 tape=${fn}".segy" endian=0 hfile=${fn}".hfile" bfile=${fn}".bfile" > ${fn}".su"
-   $operation2 < ${fn}".su" > ${fn}".range"
-   echo " "
-
+   $op01 tape=${fn}".segy" endian=0 hfile=${fn}".hfile" bfile=${fn}".bfile" > "tmp.su"
+   $op03 < "tmp.su" > ${fn}".su"
+   rm "tmp.su"
+   
+   $op02 < ${fn}".su" > ${fn}".range"
+   cp ${fn}".range" ${fn}".info" 
+   
    chmod 600 ${fn}".range"
    chmod 600 ${fn}".hfile"
    chmod 600 ${fn}".bfile"
+   chmod 600 ${fn}".info"
    chmod 600 ${fn}".su"
 done
-
 
 exit 0
