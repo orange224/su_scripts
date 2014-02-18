@@ -1,11 +1,12 @@
 #/bin/bash
 
+# http://www.imagemagick.org/script/command-line-options.php#density
 # -depth : This option specifies the image resolution to store while encoding a raster image 
 #         or the canvas resolution while rendering (reading) vector formats such as Postscript,
 #         PDF, WMF, and SVG into a raster image.
 #          The default resolution is 72 dots per inch, which is equivalent to one point per pixel 
 #         (Macintosh and Postscript standard). Computer screens are normally 72 or 96 dots per inch, 
-#         while printers typically support 150, 300, 600, or 1200 dots per inch
+#         while printers typically support 150, 300, 600, or 1200 dots per inch.
 
 op01=/usr/bin/convert
 
