@@ -13,7 +13,7 @@ fi
 for file in $directory/*.eps
 do 
    fn=${file%.eps}
-   $op01 -verbose -quality 100 -density 300 -resize 100% ${fn}".eps" ${fn}".png"
+   $op01 -verbose -quality 100 -density 300 -colorspace rgb -resize 100% ${fn}".eps" ${fn}".png"
    chmod 600 ${fn}".eps"
    chmod 600 ${fn}".png"
    echo " "
